@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/naseerumer/agentgate/pkg/mcp"
+	"github.com/umer-068/AgentGate/pkg/mcp"
 )
 
 func TestNewHTTPForwarder_RejectsEmptyTargets(t *testing.T) {

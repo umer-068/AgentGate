@@ -4,8 +4,8 @@ description: Zero-trust policy gateway for AI agents and MCP servers
 type: application
 version: 0.1.0
 appVersion: "0.1.0"
-home: https://github.com/naseerumer/agentgate
+home: https://github.com/umer-068/AgentGate
 sources:
-  - https://github.com/naseerumer/agentgate
+  - https://github.com/umer-068/AgentGate
 maintainers:
-  - name: naseerumer
+  - name: umer-068

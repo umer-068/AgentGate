@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/naseerumer/agentgate/pkg/mcp"
+	"github.com/umer-068/AgentGate/pkg/mcp"
 )
 
 // HTTPForwarder forwards allowed tool calls to a configured upstream base

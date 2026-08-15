@@ -1,4 +1,4 @@
-module github.com/naseerumer/agentgate
+module github.com/umer-068/AgentGate
 
 go 1.24.7
 

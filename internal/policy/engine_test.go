@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/naseerumer/agentgate/pkg/mcp"
+	"github.com/umer-068/AgentGate/pkg/mcp"
 )
 
 func newTestEngine(t *testing.T) *Engine {

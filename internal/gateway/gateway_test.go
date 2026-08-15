@@ -10,9 +10,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/naseerumer/agentgate/internal/audit"
-	"github.com/naseerumer/agentgate/internal/identity"
-	"github.com/naseerumer/agentgate/pkg/mcp"
+	"github.com/umer-068/AgentGate/internal/audit"
+	"github.com/umer-068/AgentGate/internal/identity"
+	"github.com/umer-068/AgentGate/pkg/mcp"
 )
 
 // --- fakes -------------------------------------------------------------

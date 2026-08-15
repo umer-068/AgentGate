@@ -19,11 +19,11 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/naseerumer/agentgate/internal/audit"
-	"github.com/naseerumer/agentgate/internal/config"
-	"github.com/naseerumer/agentgate/internal/gateway"
-	"github.com/naseerumer/agentgate/internal/identity"
-	"github.com/naseerumer/agentgate/internal/policy"
+	"github.com/umer-068/AgentGate/internal/audit"
+	"github.com/umer-068/AgentGate/internal/config"
+	"github.com/umer-068/AgentGate/internal/gateway"
+	"github.com/umer-068/AgentGate/internal/identity"
+	"github.com/umer-068/AgentGate/internal/policy"
 )
 
 func main() {

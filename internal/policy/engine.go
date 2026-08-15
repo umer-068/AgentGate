@@ -23,7 +23,7 @@ import (
 
 	"github.com/goccy/go-yaml"
 
-	"github.com/naseerumer/agentgate/pkg/mcp"
+	"github.com/umer-068/AgentGate/pkg/mcp"
 )
 
 // DenyRule is an org-wide ceiling: if a tool call's tool matches and its

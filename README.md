@@ -4,8 +4,8 @@
 
 AgentGate sits between an AI agent and the infrastructure it's allowed to touch. Every tool call gets a short-lived, scoped credential check, a policy decision, and an immutable audit entry — before anything is forwarded, not after.
 
-[![CI](https://github.com/naseerumer/agentgate/actions/workflows/ci.yml/badge.svg)](https://github.com/naseerumer/agentgate/actions/workflows/ci.yml)
-[![Go Report Card](https://goreportcard.com/badge/github.com/naseerumer/agentgate)](https://goreportcard.com/report/github.com/naseerumer/agentgate)
+[![CI](https://github.com/umer-068/AgentGate/actions/workflows/ci.yml/badge.svg)](https://github.com/umer-068/AgentGate/actions/workflows/ci.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/umer-068/AgentGate)](https://goreportcard.com/report/github.com/umer-068/AgentGate)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![Go Version](https://img.shields.io/badge/Go-1.24-00ADD8?logo=go)](go.mod)
 
@@ -33,7 +33,7 @@ Full component architecture, sequence diagram, and the production-hardening road
 ## Quickstart
 
 ```bash
-git clone https://github.com/naseerumer/agentgate.git && cd agentgate
+git clone https://github.com/umer-068/AgentGate.git && cd AgentGate
 cp config.example.yaml config.yaml
 
 # Signing key for session tokens - use a real secrets manager in production.

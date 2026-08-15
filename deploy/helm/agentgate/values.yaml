@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: ghcr.io/naseerumer/agentgate
+  repository: ghcr.io/umer-068/agentgate
   tag: "0.1.0"
   pullPolicy: IfNotPresent
 
