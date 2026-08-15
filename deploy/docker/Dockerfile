@@ -1,7 +1,12 @@
 # syntax=docker/dockerfile:1
 
 # --- build stage -------------------------------------------------------
-FROM golang:1.24-bookworm AS build
+# 1.26, not 1.24: Trivy flagged multiple stdlib CVEs (crypto/tls, net/http,
+# encoding/xml, etc.) with no fix on the 1.24 branch - only 1.25.x/1.26.x.
+# go.mod's own `go 1.24.7` directive is unaffected; a newer toolchain
+# builds older-directive code fine (see docs/adr/0002 for the incident that
+# led to this file getting a second look).
+FROM golang:1.26-bookworm AS build
 
 WORKDIR /src
 
