@@ -67,7 +67,7 @@ jobs:
         run: docker build -f deploy/docker/Dockerfile -t agentgate:ci .
 
       - name: Scan image with Trivy
-        uses: aquasecurity/trivy-action@0.24.0
+        uses: aquasecurity/trivy-action@v0.35.0
         with:
           image-ref: agentgate:ci
           format: table
