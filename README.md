@@ -1,4 +1,6 @@
-# AgentGate
+# AgentGate - Zero-trust policy gateway for AI agents & MCP servers.
+<img width="1774" height="887" alt="ChatGPT Image Aug 16, 2026, 12_31_03 AM (1)" src="https://github.com/user-attachments/assets/4ce55748-357f-4880-8a5e-0008dd01c664" />
+
 
 **A zero-trust policy gateway for AI agents and MCP servers.**
 
