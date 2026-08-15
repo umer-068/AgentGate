@@ -1,0 +1,28 @@
+# AgentGate's default policy bundle (MVP native-Go evaluator).
+#
+# Decision model, evaluated in this order:
+#   1. deny_rules always win, regardless of what scope the agent's session
+#      token carries. This is the "blast-radius ceiling" - e.g. production
+#      resources or raw shell execution can be denied org-wide even if
+#      someone mis-scopes a token.
+#   2. Otherwise, the call is allowed only if the agent's session token
+#      carries a scope of the form "tool:<tool>:<action>" (or
+#      "tool:<tool>:*") matching the requested tool call.
+#   3. Everything else is denied by default.
+#
+# resource_pattern supports a single "*" wildcard per pattern (matches any
+# sequence of characters, including "/").
+#
+# See examples/policies/opa-reference for the equivalent policy expressed in
+# real Rego, which is the intended production evaluator once AgentGate's OPA
+# integration lands (see docs/adr/0001-go-over-rust-for-mvp.md).
+deny_rules:
+  - tool: aws-s3
+    resource_pattern: "prod-*"
+    reason: "production S3 buckets are never agent-writable; use a scoped staging bucket"
+  - tool: shell
+    resource_pattern: "*"
+    reason: "raw shell execution is denied org-wide by default policy"
+  - tool: kubernetes
+    resource_pattern: "namespace/prod/*"
+    reason: "the prod namespace is out of scope for autonomous agents"

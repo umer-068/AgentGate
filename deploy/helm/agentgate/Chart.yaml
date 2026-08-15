@@ -1,0 +1,11 @@
+apiVersion: v2
+name: agentgate
+description: Zero-trust policy gateway for AI agents and MCP servers
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+home: https://github.com/naseerumer/agentgate
+sources:
+  - https://github.com/naseerumer/agentgate
+maintainers:
+  - name: naseerumer

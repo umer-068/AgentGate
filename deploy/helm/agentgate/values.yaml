@@ -1,0 +1,66 @@
+replicaCount: 2
+
+image:
+  repository: ghcr.io/naseerumer/agentgate
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8443
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 64Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+# Reference to a pre-created Secret holding the JWT signing key, e.g.:
+#   kubectl create secret generic agentgate-signing-key \
+#     --from-literal=AGENTGATE_SIGNING_KEY="$(openssl rand -base64 32)"
+signingKeySecretName: agentgate-signing-key
+
+# The policy bundle is mounted from a ConfigMap so it can be updated
+# independently of the image (see values.policy.rules for the source of
+# truth rendered into that ConfigMap).
+policy:
+  denyRules:
+    - tool: aws-s3
+      resourcePattern: "prod-*"
+      reason: "production S3 buckets are never agent-writable"
+    - tool: shell
+      resourcePattern: "*"
+      reason: "raw shell execution is denied org-wide by default policy"
+
+config:
+  server:
+    addr: ":8443"
+  identity:
+    tokenTTL: 15m
+    issuer: agentgate
+  audit:
+    logLevel: info
+    sqlitePath: /var/lib/agentgate/audit.db
+  upstream:
+    timeout: 10s
+    targets:
+      github: "https://api.github.com"
+
+podSecurityContext:
+  runAsNonRoot: true
+  fsGroup: 65532
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop: ["ALL"]
+
+persistence:
+  # SQLite needs a writable volume for the audit trail; swap for the
+  # ClickHouse-backed audit.Store (see docs/architecture.md roadmap table)
+  # to run without persistent storage at all.
+  enabled: true
+  size: 1Gi

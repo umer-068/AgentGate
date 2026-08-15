@@ -1,0 +1,28 @@
+# Copy to config.yaml and adjust for your environment.
+# Secrets (the JWT signing key) are never read from this file - set the
+# AGENTGATE_SIGNING_KEY environment variable instead (see identity.signing_key_env).
+
+server:
+  addr: ":8443"
+  read_timeout: 5s
+  write_timeout: 10s
+  shutdown_timeout: 10s
+
+identity:
+  signing_key_env: "AGENTGATE_SIGNING_KEY"   # must be >= 32 bytes
+  token_ttl: 15m
+  issuer: "agentgate"
+
+policy:
+  bundle_path: "internal/policy/policies/policy.yaml"
+
+audit:
+  sqlite_path: "agentgate-audit.db"
+  log_level: "info"
+
+upstream:
+  timeout: 10s
+  targets:
+    github: "https://api.github.com"
+    # aws-s3: "https://your-s3-proxy.internal"
+    # kubernetes: "https://your-cluster-api-proxy.internal"

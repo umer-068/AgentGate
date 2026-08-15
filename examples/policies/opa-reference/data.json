@@ -1,0 +1,21 @@
+{
+  "agentgate": {
+    "deny_rules": [
+      {
+        "tool": "aws-s3",
+        "resource_pattern": "prod-*",
+        "reason": "production S3 buckets are never agent-writable; use a scoped staging bucket"
+      },
+      {
+        "tool": "shell",
+        "resource_pattern": "*",
+        "reason": "raw shell execution is denied org-wide by default policy"
+      },
+      {
+        "tool": "kubernetes",
+        "resource_pattern": "namespace/prod/*",
+        "reason": "the prod namespace is out of scope for autonomous agents"
+      }
+    ]
+  }
+}

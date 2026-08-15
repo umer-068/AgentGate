@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "agentgate.name" . }}
+  labels:
+    {{- include "agentgate.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "agentgate.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "agentgate.labels" . | nindent 8 }}
+    spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: agentgate
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          args: ["serve", "-config", "/etc/agentgate/config.yaml"]
+          ports:
+            - name: http
+              containerPort: 8443
+          env:
+            - name: AGENTGATE_SIGNING_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.signingKeySecretName }}
+                  key: AGENTGATE_SIGNING_KEY
+          readinessProbe:
+            httpGet: { path: /healthz, port: http }
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: { path: /healthz, port: http }
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: /etc/agentgate
+              readOnly: true
+            {{- if .Values.persistence.enabled }}
+            - name: audit-data
+              mountPath: /var/lib/agentgate
+            {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "agentgate.name" . }}-config
+        {{- if .Values.persistence.enabled }}
+        - name: audit-data
+          persistentVolumeClaim:
+            claimName: {{ include "agentgate.name" . }}-audit
+        {{- end }}

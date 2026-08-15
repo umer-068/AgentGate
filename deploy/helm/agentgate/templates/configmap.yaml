@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "agentgate.name" . }}-config
+  labels:
+    {{- include "agentgate.labels" . | nindent 4 }}
+data:
+  config.yaml: |
+    server:
+      addr: {{ .Values.config.server.addr | quote }}
+    identity:
+      signing_key_env: "AGENTGATE_SIGNING_KEY"
+      token_ttl: {{ .Values.config.identity.tokenTTL | quote }}
+      issuer: {{ .Values.config.identity.issuer | quote }}
+    policy:
+      bundle_path: "/etc/agentgate/policy.yaml"
+    audit:
+      sqlite_path: {{ .Values.config.audit.sqlitePath | quote }}
+      log_level: {{ .Values.config.audit.logLevel | quote }}
+    upstream:
+      timeout: {{ .Values.config.upstream.timeout | quote }}
+      targets:
+        {{- range $tool, $url := .Values.config.upstream.targets }}
+        {{ $tool }}: {{ $url | quote }}
+        {{- end }}
+
+  policy.yaml: |
+    deny_rules:
+      {{- range .Values.policy.denyRules }}
+      - tool: {{ .tool }}
+        resource_pattern: {{ .resourcePattern | quote }}
+        reason: {{ .reason | quote }}
+      {{- end }}
